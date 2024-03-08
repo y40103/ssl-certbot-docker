@@ -20,11 +20,14 @@ Before getting started, ensure the following:
 
 ```
 export CERTBOT_DOMAIN=<Your domain name>
+
 export CERTBOT_EMAIL=<Your email>
 
 git clone 
 
 cd ssl-certbot-docker
+
+chmod a+x run.sh
 
 ./run.sh https://github.com/y40103/ssl-certbot-docker.git
 ```

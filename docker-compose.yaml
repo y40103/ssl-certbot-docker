@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  web:
+    image: nginx
+    volumes:
+      - ./nginx:/etc/nginx
+      - ./html:/usr/share/nginx/html
+    ports:
+      - "80:80"
+
+  cerbot:
+    image: certbot/certbot:latest
+    container_name: certbot
+    volumes:
+      - ./html/:/tmp/html/
+      - ./output/:/etc/letsencrypt/live/
+    command: "certonly -v -n --agree-tos --webroot -w /tmp/html/ -m ${CERTBOT_EMAIL} -d ${CERTBOT_DOMAIN}"
+    depends_on:
+      - web

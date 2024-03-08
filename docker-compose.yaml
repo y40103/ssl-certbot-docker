@@ -13,7 +13,7 @@ services:
     container_name: certbot
     volumes:
       - ./html/:/tmp/html/
-      - ./output/:/etc/letsencrypt/live/
+      - ./output/:/etc/letsencrypt/archive
     command: "certonly -v -n --agree-tos --webroot -w /tmp/html/ -m ${CERTBOT_EMAIL} -d ${CERTBOT_DOMAIN}"
     depends_on:
       - web

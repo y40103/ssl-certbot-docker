@@ -49,7 +49,7 @@ cd ssl-certbot-docker
 
 chmod a+x renew_run.sh
 
-./renew.sh
+./renew_run.sh
 
 ```
 

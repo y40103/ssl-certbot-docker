@@ -7,13 +7,31 @@ services:
       - ./html:/usr/share/nginx/html
     ports:
       - "80:80"
+    profiles:
+      - new
+      - renew
 
-  cerbot:
+  cerbot_new:
     image: certbot/certbot:latest
-    container_name: certbot
+    container_name: certbot_new
     volumes:
       - ./html/:/tmp/html/
-      - ./output/:/etc/letsencrypt/archive
-    command: "certonly -v -n --agree-tos --webroot -w /tmp/html/ -m ${CERTBOT_EMAIL} -d ${CERTBOT_DOMAIN}"
+      - ./letsencrypt/:/etc/letsencrypt/
+    command: "certonly --agree-tos -v --webroot -w /tmp/html/ -m ${CERTBOT_EMAIL} -d ${CERTBOT_DOMAIN}"
     depends_on:
       - web
+    profiles:
+      - new
+
+  cerbot_renew:
+    image: certbot/certbot:latest
+    container_name: certbot_renew
+    volumes:
+      - ./html/:/tmp/html/
+      - ./letsencrypt/:/etc/letsencrypt/
+    command: "renew -v"
+    depends_on:
+      - web
+    profiles:
+      - renew
+

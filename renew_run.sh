@@ -16,9 +16,9 @@ server {
     }
 }" > nginx/conf.d/certbot_$CERTBOT_DOMAIN.conf
 
-docker compose --profile new up -d
+docker compose --profile renew up -d
 sleep 5
-docker logs certbot_new
-docker compose --profile new down
+docker logs certbot_renew
+docker compose --profile renew down
 readlink -f ./letsencrypt/archive/$CERTBOT_DOMAIN
 ls ./letsencrypt/archive/$CERTBOT_DOMAIN
